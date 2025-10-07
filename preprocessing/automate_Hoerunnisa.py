@@ -86,10 +86,15 @@ def preprocess_data(data_path, target_col, save_dir="liver_cancer_preprocessing"
     label_names = label_cols
     ohe_names = preprocessor.named_transformers_['ohe']['encoder'].get_feature_names_out(ohe_cols)
     all_columns = numeric_features + label_names + list(ohe_names) + [target_col]
-
+    
     # Simpan hasil preprocessing
     train_res = pd.DataFrame(np.hstack([X_train_res, y_train_res.values.reshape(-1, 1)]), columns=all_columns)
     test_res = pd.DataFrame(np.hstack([X_test_transformed, y_test.values.reshape(-1, 1)]), columns=all_columns)
+
+    # Konversi kolom biner ke integer
+    binary_cols = list(ohe_names) + label_names + [target_col]
+    train_res[binary_cols] = train_res[binary_cols].astype(int)
+    test_res[binary_cols] = test_res[binary_cols].astype(int)
 
     train_res.to_csv(os.path.join(save_dir, "train_liver.csv"), index=False)
     test_res.to_csv(os.path.join(save_dir, "test_liver.csv"), index=False)
