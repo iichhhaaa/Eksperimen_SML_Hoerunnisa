@@ -34,7 +34,6 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          # Pastikan semua file di folder di-stage
           git add -A preprocessing/liver_cancer_preprocessing/
           git commit -m "Add hasil preprocessing otomatis (train/test/pipeline)" || echo "Tidak ada perubahan untuk di-commit"
           git push origin main || echo "Push dilewati"
