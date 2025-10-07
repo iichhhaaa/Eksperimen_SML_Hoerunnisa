@@ -92,7 +92,7 @@ def preprocess_data(data_path, target_col, save_dir="liver_cancer_preprocessing"
     test_res = pd.DataFrame(np.hstack([X_test_transformed, y_test.values.reshape(-1, 1)]), columns=all_columns)
 
     # Konversi kolom biner ke integer
-    binary_cols = list(ohe_names) + label_names + [target_col]
+    binary_cols = list(ohe_names) + label_names + [target_col] + ['hepatitis_b', 'hepatitis_c', 'cirrhosis_history', 'family_history_cancer', 'diabetes']
     train_res[binary_cols] = train_res[binary_cols].astype(int)
     test_res[binary_cols] = test_res[binary_cols].astype(int)
 
